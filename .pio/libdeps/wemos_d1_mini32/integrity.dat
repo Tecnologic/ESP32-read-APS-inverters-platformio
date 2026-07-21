@@ -1,0 +1,7 @@
+https://github.com/dvarrel/AsyncTCP.git
+paulstoffregen/Time @ ^1.6.1
+arduino-libraries/NTPClient @ ^3.2.1
+https://github.com/dvarrel/ESPAsyncWebSrv.git
+knolleary/PubSubClient @ ^2.8
+https://github.com/sfrwmaker/sunMoon.git
+bblanchon/ArduinoJson @ ^7
