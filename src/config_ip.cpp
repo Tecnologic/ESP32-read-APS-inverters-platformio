@@ -110,7 +110,7 @@ void handleIPconfig(AsyncWebServerRequest *request) {
   // almost impossible to enter a wrong IP. no need to check
   // collect the serverarguments
   
-  strcpy( static_ip2, request->getParam("ip")->value().c_str() );
+  snprintf(static_ip2, sizeof(static_ip2), "%s", request->getParam("ip")->value().c_str());
   
   String ipcheck = String(static_ip2[0]) + "." + String(static_ip2[1]) + "." + String(static_ip2[2]);   
   //Serial.println(F("\ipcheck = " + ipcheck ));
@@ -142,7 +142,7 @@ void handleIPconfig(AsyncWebServerRequest *request) {
     {
         consoleOut("the IP has changed");
         //static_ip=static_ip2;
-        strcpy(static_ip, static_ip2);
+        snprintf(static_ip, sizeof(static_ip), "%s", static_ip2);
 
         // if an ip was entered we put the ip data in the confirmpage
         if (static_ip[0] != '\0' && static_ip[0] != '0') 

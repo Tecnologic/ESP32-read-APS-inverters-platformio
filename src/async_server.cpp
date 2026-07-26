@@ -66,7 +66,7 @@ server.on("/favicon.ico", HTTP_GET, [](AsyncWebServerRequest *request) {
 server.on("/details", HTTP_GET, [](AsyncWebServerRequest *request) {
 iKeuze = atoi(request->arg("inv").c_str()) ;
 //requestUrl = request->url();
-strcpy( requestUrl, request->url().c_str() );
+snprintf(requestUrl, sizeof(requestUrl), "%s", request->url().c_str());
 //Serial.println("details url = " + String(requestUrl));
 request->send_P(200, "text/html", DETAILSPAGE);
 });
@@ -74,7 +74,7 @@ request->send_P(200, "text/html", DETAILSPAGE);
 // very often called  XHT REQUESTS handled by handleDataRequests()
 //***********************************************************************
 server.on("/get.Data", HTTP_GET, [](AsyncWebServerRequest *request) {
-  strcpy( requestUrl, request->url().c_str() );
+  snprintf(requestUrl, sizeof(requestUrl), "%s", request->url().c_str());
   Serial.println("get.Data url = " + String(requestUrl));
   handleDataRequests(request);
 });
@@ -111,7 +111,7 @@ server.on("/BASISCONFIG", HTTP_GET, [](AsyncWebServerRequest *request) {
   if(checkRemote( request->client()->remoteIP().toString()) ) request->redirect( "/DENIED" );
 loginBoth(request, "admin");
 //requestUrl = request->url();// remember this to come back after reboot
-strcpy( requestUrl, request->url().c_str() );
+snprintf(requestUrl, sizeof(requestUrl), "%s", request->url().c_str());
 zendPageBasis(request);
 //request->send(200, "text/html", toSend);
 });
@@ -137,7 +137,7 @@ server.on("/MQTT", HTTP_GET, [](AsyncWebServerRequest *request) {
   if(checkRemote( request->client()->remoteIP().toString()) ) request->redirect( "/DENIED" );
   loginBoth(request, "admin");
   //requestUrl = request->url();
-  strcpy( requestUrl, request->url().c_str() );
+  snprintf(requestUrl, sizeof(requestUrl), "%s", request->url().c_str());
   zendPageMQTTconfig(request);
   //request->send(200, "text/html", toSend);
 });
@@ -146,7 +146,7 @@ server.on("/GEOCONFIG", HTTP_GET, [](AsyncWebServerRequest *request) {
   if(checkRemote( request->client()->remoteIP().toString()) ) request->redirect( "/DENIED" );
   loginBoth(request, "admin");
   //requestUrl = request->url();
-  strcpy( requestUrl, request->url().c_str() );
+  snprintf(requestUrl, sizeof(requestUrl), "%s", request->url().c_str());
   zendPageGEOconfig(request);
   //request->send(200, "text/html", toSend);
 });
@@ -164,7 +164,7 @@ server.on("/REBOOT", HTTP_GET, [](AsyncWebServerRequest *request) {
   loginBoth(request, "admin");
   actionFlag = 10;
   confirm(); 
-  strcpy( requestUrl, "/");
+  snprintf(requestUrl, sizeof(requestUrl), "%s", "/");
   request->send(200, "text/html", toSend);
 });
 
@@ -191,7 +191,7 @@ server.on("/TEST", HTTP_GET, [](AsyncWebServerRequest *request) {
 server.on("/LOGPAGE", HTTP_GET, [](AsyncWebServerRequest *request) {
   loginBoth(request, "both");
   //requestUrl = request->url();
-  strcpy( requestUrl, request->url().c_str() );
+  snprintf(requestUrl, sizeof(requestUrl), "%s", request->url().c_str());
   //handleLogPage(request);
   request->send_P(200, "text/html", LOGPAGE, putList);
 });
@@ -223,7 +223,7 @@ server.on("/INVSCRIPT", HTTP_GET, [](AsyncWebServerRequest *request) {
 server.on("/INV_CONFIG", HTTP_GET, [](AsyncWebServerRequest *request) {
   if(checkRemote( request->client()->remoteIP().toString()) ) request->redirect( "/DENIED" );  
   iKeuze=0;
-  strcpy( requestUrl, request->url().c_str() ); 
+  snprintf(requestUrl, sizeof(requestUrl), "%s", request->url().c_str());
   inverterForm(); // prepare the page part with the form
   request->send_P(200, "text/html", INVCONFIG_START, processor);
 });
@@ -236,7 +236,7 @@ server.on("/PAIR", HTTP_GET, [](AsyncWebServerRequest *request) {
   if(checkRemote( request->client()->remoteIP().toString()) ) request->redirect( "/DENIED" );
   loginBoth(request, "admin");
   //requestUrl = request->url();
-  strcpy( requestUrl, request->url().c_str() );
+  snprintf(requestUrl, sizeof(requestUrl), "%s", request->url().c_str());
   //DebugPrintln(F("pairing requested"));
   handlePair(request);
 });
@@ -247,7 +247,7 @@ server.on("/INV_DEL", HTTP_GET, [](AsyncWebServerRequest *request) {
 });
 
 server.on("/INV", HTTP_GET, [](AsyncWebServerRequest *request) {
-    strcpy( requestUrl, request->url().c_str() );
+    snprintf(requestUrl, sizeof(requestUrl), "%s", request->url().c_str());
     //bool nothing = false;
     int i = atoi(request->arg("welke").c_str()) ;
     iKeuze = i;
@@ -285,7 +285,7 @@ server.on("/get.Paired", HTTP_GET, [](AsyncWebServerRequest *request) {
 // ***************************************************************************************                                      
   server.on("/FWUPDATE", HTTP_GET, [](AsyncWebServerRequest *request){
     if(checkRemote( request->client()->remoteIP().toString()) ) request->redirect( "/DENIED" );
-    strcpy(requestUrl, "/");
+    snprintf(requestUrl, sizeof(requestUrl), "%s", "/");
     if (!request->authenticate("admin", pswd) ) return request->requestAuthentication();
     request->send_P(200, "text/html", otaIndex); 
     });

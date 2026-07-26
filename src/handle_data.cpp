@@ -8,6 +8,10 @@ void handleDataRequests(AsyncWebServerRequest *request)
     {
      consoleOut("found POWER");  
      int i = atoi(request->arg("inv").c_str()) ;
+      if (i < 0 || i >= inverterCount || i >= 9) {
+        request->send(200, "text/plain", "invalid inverter index");
+        return;
+      }
      AsyncResponseStream *response = request->beginResponseStream("application/json");
      JsonDocument root;
      if(Inv_Data[i].en_total > 0) { // only possible when was polled this day

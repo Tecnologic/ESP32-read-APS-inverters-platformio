@@ -38,17 +38,16 @@ if ( intern ) {    //DebugPrintln("the request comes from inside the network");
     int Invert = request->arg("inv").toInt();
     int throtVal = request->arg("val").toInt();
 
-    if (Invert > inverterCount) Invert = 10;
     if (throtVal == 0) throtVal = 800;
+    if(Invert < 0 || Invert >= inverterCount || Invert >= 9 || throtVal > 700 || throtVal < 20)
+    {
+      request->send ( 200, "text/plain", "invalid value(s)" );
+      return;
+    }
   
     Serial.println("inv = " + String(Invert));
     Serial.println("val = " + String(throtVal));
     desiredThrottle[Invert] = throtVal;
-    if(Invert > inverterCount || Invert < 0 || throtVal > 700 || throtVal < 20 )
-    {
-      request->send ( 200, "text/plain", "invalid value(s)" );
-      return; 
-    }
     actionFlag = 240+Invert;
     String term = "attempt throttling inverter " + String(Invert) + " to " + String(throtVal);
     request->send ( 200, "text/plain", term );

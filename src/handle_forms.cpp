@@ -7,8 +7,8 @@ void handleForms(AsyncWebServerRequest *request)
 
      if(request->hasParam("ecuid")) {
          // received form basisconfig
-         strcpy(ECU_ID, request->arg("ecuid").c_str());
-         strcpy(userPwd, request->arg("pw1").c_str());
+       snprintf(ECU_ID, sizeof(ECU_ID), "%s", request->arg("ecuid").c_str());
+       snprintf(userPwd, sizeof(userPwd), "%s", request->arg("pw1").c_str());
          pollOffset = request->arg("offs").toInt();  
   
 //BEWARE CHECKBOX
@@ -21,7 +21,7 @@ void handleForms(AsyncWebServerRequest *request)
         // received the geoconfig form
         longi = request->getParam("longi")->value().toFloat();
         lati = request->getParam("be")->value().toFloat();
-        strcpy(gmtOffset, request->getParam("tz")->value().c_str());
+        snprintf(gmtOffset, sizeof(gmtOffset), "%s", request->getParam("tz")->value().c_str());
         // a checkbox has only a parameter when checked
         if(request->hasParam("ts")) zomerTijd = true;  else  zomerTijd = false;
         wifiConfigsave();
@@ -31,11 +31,11 @@ void handleForms(AsyncWebServerRequest *request)
      } else
      if(request->hasParam("mqtAdres")) {
         // form mosquitto received
-  strcpy( Mqtt_Broker  , request->getParam("mqtAdres")   ->value().c_str() );
-  strcpy( Mqtt_Port    , request->getParam("mqtPort")    ->value().c_str() );
-  strcpy( Mqtt_outTopic, request->getParam("mqtoutTopic")->value().c_str() );
-  strcpy( Mqtt_Username, request->getParam("mqtUser")    ->value().c_str() );
-  strcpy( Mqtt_Password, request->getParam("mqtPas")     ->value().c_str() );
+    snprintf(Mqtt_Broker, sizeof(Mqtt_Broker), "%s", request->getParam("mqtAdres")->value().c_str());
+    snprintf(Mqtt_Port, sizeof(Mqtt_Port), "%s", request->getParam("mqtPort")->value().c_str());
+    snprintf(Mqtt_outTopic, sizeof(Mqtt_outTopic), "%s", request->getParam("mqtoutTopic")->value().c_str());
+    snprintf(Mqtt_Username, sizeof(Mqtt_Username), "%s", request->getParam("mqtUser")->value().c_str());
+    snprintf(Mqtt_Password, sizeof(Mqtt_Password), "%s", request->getParam("mqtPas")->value().c_str());
   //strcpy( Mqtt_Clientid, request->getParam("mqtCi")     ->value().c_str() );  
   Mqtt_stateIDX = request->arg("mqidx").toInt(); //values are 0 1 2
   Mqtt_Format = request->arg("fm").toInt(); //values are 0 1 2 3 4 5
@@ -61,6 +61,10 @@ void handleForms(AsyncWebServerRequest *request)
        
        int Inv = request->arg("INV").toInt();
        Serial.println("the form is for inverter " + String(Inv));
+       if (Inv < 0 || Inv >= inverterCount || Inv >= 9) {
+         request->send(200, "text/plain", "invalid inverter index");
+         return;
+       }
        
        desiredThrottle[Inv] = request->getParam("pMax")->value().toInt();
        
@@ -95,7 +99,7 @@ void handleForms(AsyncWebServerRequest *request)
           Serial.println("actionFlag set to " + String(actionFlag));
           //Serial.println("setting the return url to /details?inv=");
           String toReturn = "/details?inv=" + String(Inv);
-          strcpy(requestUrl, toReturn.c_str() ); 
+          snprintf(requestUrl, sizeof(requestUrl), "%s", toReturn.c_str());
           Serial.println("requestUrl = " + String(requestUrl));
           return;
 

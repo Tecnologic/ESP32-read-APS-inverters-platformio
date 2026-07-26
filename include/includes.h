@@ -134,7 +134,7 @@ int errorCode=10;
   int t_saved[YC600_MAX_NUMBER_OF_INVERTERS] = {0};
   float en_saved[YC600_MAX_NUMBER_OF_INVERTERS][4] = {0};
   
-  char InputBuffer_Serial[50]; // need to be global
+  char InputBuffer_Serial[128]; // serial command buffer
 
 typedef struct{
   char invLocation[13] = "N/A";
@@ -171,7 +171,7 @@ inverterdata Inv_Data[9];
  int inverterCount=0;
  char ECU_ID[13] = "";
 
-char requestUrl[15] = {"/"}; // to remember from which webpage we came  
+char requestUrl[96] = {"/"}; // to remember from which webpage we came  
 
 // variables mqtt ********************************************
   char  Mqtt_Broker[30]=    {""};

@@ -10,13 +10,16 @@ void handle_Serial () {
              SerialInByte=Serial.read(); 
             
             if(isprint(SerialInByte)) {
-              if(SerialInByteCounter<100) InputBuffer_Serial[SerialInByteCounter++]=SerialInByte;
+              if(SerialInByteCounter < (int)sizeof(InputBuffer_Serial) - 1) {
+                InputBuffer_Serial[SerialInByteCounter++] = SerialInByte;
+              }
             }    
             if(SerialInByte=='\n') {                                              // new line character
               InputBuffer_Serial[SerialInByteCounter]=0;
               break; // serieel data is complete
             }
        }  
+     InputBuffer_Serial[SerialInByteCounter] = '\0';
      Serial.println("InputBuffer_Serial = " + String(InputBuffer_Serial) );
      diagNose = 2; // direct the output to serial
      Serial.println("\nType 10;HELP to list available commands");
@@ -119,14 +122,14 @@ void handle_Serial () {
             Serial.println("inverter = " + String(kz));
             Serial.println("watt = " + String(watt));
             Serial.println("inverterCount =" + String(inverterCount));
+            if (kz < 0 || kz >= inverterCount || kz >= 9) {
+              Serial.println("error, no such inverter");
+              return;
+            }
             desiredThrottle[kz] = watt;
               } else {
                 Serial.println("error, throttle format should be THROTTLE=x-y");
                 return;
-              }
-              if ( kz > inverterCount-1 ) {
-              Serial.println("error, no such inverter");
-              return;  
               }
              actionFlag = 240 + kz; 
               return;

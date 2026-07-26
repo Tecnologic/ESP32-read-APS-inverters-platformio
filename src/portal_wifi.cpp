@@ -109,9 +109,9 @@ void start_portal() {
   char pass[40] = "";
 
 // process the data and try to connect
-  strcpy( ssid, request->getParam("s")->value().c_str() );
-  strcpy( pass, request->getParam("p")->value().c_str() );  
-  strcpy( pswd, request->getParam("pw")->value().c_str() );
+  snprintf(ssid, sizeof(ssid), "%s", request->getParam("s")->value().c_str());
+  snprintf(pass, sizeof(pass), "%s", request->getParam("p")->value().c_str());
+  snprintf(pswd, sizeof(pswd), "%s", request->getParam("pw")->value().c_str());
   securityLevel = request->arg("sl").toInt();  
 
     wifiConfigsave(); // save the admin passwd

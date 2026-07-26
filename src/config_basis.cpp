@@ -44,8 +44,8 @@ void zendPageBasis(AsyncWebServerRequest *request) {
 
 void handleBasisconfig(AsyncWebServerRequest *request) { // form action = handleConfigsave
 // verzamelen van de serverargumenten   
-   strcpy(ECU_ID, request->arg("ecuid").c_str());
-   strcpy(userPwd, request->arg("pw1").c_str());
+  snprintf(ECU_ID, sizeof(ECU_ID), "%s", request->arg("ecuid").c_str());
+  snprintf(userPwd, sizeof(userPwd), "%s", request->arg("pw1").c_str());
 //   pollRes = request->arg("pr").toInt();
 //   hc_IDX = request->arg("hcidx").toInt();
    pollOffset = request->arg("offs").toInt();  
