@@ -1,3 +1,6 @@
+bool pairing(int which);
+bool decodePairMessage(int which);
+
 void pairOnActionflag() {
 //start with setup the coordinator
 //can we pair when the radio is up for normal operation

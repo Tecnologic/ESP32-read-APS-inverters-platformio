@@ -1,3 +1,22 @@
+#include <Arduino.h>
+#include <ESPAsyncWebSrv.h>
+#include <PubSubClient.h>
+#include <TimeLib.h>
+#include <WiFi.h>
+#include <esp_system.h>
+
+extern bool timeRetrieved;
+extern int dst;
+extern time_t switchonTime;
+extern time_t switchoffTime;
+extern int Mqtt_Format;
+extern char Mqtt_Broker[30];
+extern int resetCounter;
+extern uint8_t securityLevel;
+extern PubSubClient MQTT_Client;
+
+String getChipId(bool sec);
+
 const char ABOUT [] PROGMEM = R"=====(
 <!DOCTYPE html><html><head>
 <meta http-equiv="refresh" content="180">

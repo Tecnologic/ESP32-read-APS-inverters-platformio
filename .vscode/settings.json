@@ -1,0 +1,8 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "platformio": true,
+        "command": true,
+        "~/.platformio/penv/bin/platformio": true,
+        "awk": true
+    }
+}

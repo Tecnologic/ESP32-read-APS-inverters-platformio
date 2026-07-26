@@ -1,3 +1,5 @@
+int decodeQueryAnswer(int welke);
+
 void querying(int which) {
     //polled[which]=false; //nothing is displayed on webpage
 

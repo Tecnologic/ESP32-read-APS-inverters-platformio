@@ -2,6 +2,9 @@
 //                            read zigbee
 // *****************************************************************************
 
+String checkSumString(char cmd[]);
+int StrToHex(char str[]);
+
 char * readZB( char inMess[] ) {
     readCounter = 0;
     String term="";
@@ -109,10 +112,6 @@ char bufferCRC_2[254] = {0};
     return String(bufferCRC);
 }
 
-
-// **************************************************************************
-//                               data converters
-// **************************************************************************
 
 // calculate and return the length of the message
 char *sLen(const char Command[])  

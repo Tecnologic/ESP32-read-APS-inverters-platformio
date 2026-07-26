@@ -1,4 +1,45 @@
 #include "includes.h"
+#include "function_prototypes.h"
+
+// Build as one translation unit to preserve Arduino tab behavior after
+// converting from .ino tabs to individual .cpp files.
+#include "about.cpp"
+#include "config_basis.cpp"
+#include "config_geo.cpp"
+#include "config_ip.cpp"
+#include "console.cpp"
+#include "decode.cpp"
+#include "events.cpp"
+#include "external.cpp"
+#include "force.cpp"
+#include "handle_data.cpp"
+#include "handle_forms.cpp"
+#include "helpers.cpp"
+#include "homepage.cpp"
+#include "info_page.cpp"
+#include "inverters.cpp"
+#include "isr.cpp"
+#include "legend.cpp"
+#include "log_page.cpp"
+#include "log.cpp"
+#include "mqtt_config.cpp"
+#include "mqtt.cpp"
+#include "portal_wifi.cpp"
+#include "reboot_ap.cpp"
+#include "serial_link.cpp"
+#include "set_power.cpp"
+#include "spiffs_rw.cpp"
+#include "start_wifi.cpp"
+#include "test.cpp"
+#include "tijd_calc.cpp"
+#include "tijd_get.cpp"
+#include "zigbee_coordinator.cpp"
+#include "zigbee_health.cpp"
+#include "zigbee_helpers.cpp"
+#include "zigbee_pair.cpp"
+#include "zigbee_polling.cpp"
+#include "zigbee_querying.cpp"
+#include "async_server.cpp"
 // *****************************************************************************
 // *                              SETUP
 // *****************************************************************************
@@ -261,6 +302,10 @@ void loop() {
 
 // // all actions called by the webinterface should run outside the async webserver environment
 // // otherwise crashes will occure.
+
+void write_eeprom() {
+  // Legacy hook kept for converted sketch compatibility.
+}
  
 
 

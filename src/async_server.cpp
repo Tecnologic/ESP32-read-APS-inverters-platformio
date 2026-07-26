@@ -1,3 +1,30 @@
+// Arduino IDE generated prototypes automatically for .ino tabs.
+// In C++ translation units we must declare cross-file symbols explicitly.
+void loginBoth(AsyncWebServerRequest *request, String who);
+bool checkRemote(String url);
+void consoleOut(String toLog);
+void handleDataRequests(AsyncWebServerRequest *request);
+void zendPageBasis(AsyncWebServerRequest *request);
+void handleForms(AsyncWebServerRequest *request);
+void confirm();
+void zendPageMQTTconfig(AsyncWebServerRequest *request);
+void zendPageGEOconfig(AsyncWebServerRequest *request);
+void handleAbout(AsyncWebServerRequest *request);
+String putList(const String& var);
+void inverterForm();
+String processor(const String& var);
+void handleInverterconfig(AsyncWebServerRequest *request);
+void handlePair(AsyncWebServerRequest *request);
+void handleInverterdel(AsyncWebServerRequest *request);
+void handleNotFound(AsyncWebServerRequest *request);
+
+extern const char ECU_HOMEPAGE[] PROGMEM;
+extern const char CONSOLE_HTML[] PROGMEM;
+extern const char LOGPAGE[] PROGMEM;
+extern const char INV_SCRIPT[] PROGMEM;
+extern const char INVCONFIG_START[] PROGMEM;
+
+
 /*
  * changed the order of the handlers
 */

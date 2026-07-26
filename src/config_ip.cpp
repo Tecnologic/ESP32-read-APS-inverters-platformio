@@ -50,6 +50,13 @@ function submitF() {
 </body></html>
 )=====";
 
+const char CONFIRM_IP[] PROGMEM = R"=====(
+<!DOCTYPE html><html><head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<script>setTimeout(function(){window.location.href='http://{adres0}';}, 5000);</script>
+</head><body><center><br><br><h3>#zin#</h3></center></body></html>
+)=====";
+
 void zendPageIPconfig() {
    //if( diagNose != 0 )("we are now on zendPageIPconfig");
    //loginAdmin(AsyncWebServerRequest *request);

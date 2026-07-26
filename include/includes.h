@@ -112,7 +112,7 @@ int testCounter = 0;
   float lati = 0;
   char gmtOffset[5] = "";  //+5.30 GMT
   bool zomerTijd = true;
-  //char static_ip[16] = "";
+  char static_ip[16] = "";
   uint8_t securityLevel = 6;
 
 
