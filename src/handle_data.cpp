@@ -39,7 +39,6 @@ void handleDataRequests(AsyncWebServerRequest *request)
       if( request->hasArg("General") )
     { 
     consoleOut("found General");
-    char temp[15]={0};
     uint8_t remote = 0;
     if(checkRemote( request->client()->remoteIP().toString()) ) remote = 1; // for the menu link
     uint8_t night = 0; 

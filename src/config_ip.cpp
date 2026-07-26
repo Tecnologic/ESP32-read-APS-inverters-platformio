@@ -117,8 +117,6 @@ void handleIPconfig(AsyncWebServerRequest *request) {
 
   String adres="";
   String zin="";
-  bool reBoot = false;
-  bool leegmaken = false;
 
   // see if dhcp is selected. if yes, empty static_ip2
   String optie = request->getParam("keuze")->value();

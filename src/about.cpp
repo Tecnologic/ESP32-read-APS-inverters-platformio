@@ -61,15 +61,15 @@ strcpy_P(page, ABOUT);
   
   sprintf(temp, "<tr><td>system uptime<td>%d d %d h %d m </td>", dagen, urens-dagen*24, minutens-urens*60);
   strcat(page, temp);
-  sprintf(temp, "<tr><td>wifi signalstrength<td>%lddB</td>", WiFi.RSSI());
+  sprintf(temp, "<tr><td>wifi signalstrength<td>%d dB</td>", WiFi.RSSI());
   strcat(page, temp);
 
     sprintf(temp, "<tr><td>ESP CHIP ID<td>%s</td>", getChipId(true).c_str() );
     strcat(page, temp);
-    sprintf(temp, "<tr><td>Free heap<td>%ld bytes</td>", esp_get_free_heap_size() );
+    sprintf(temp, "<tr><td>Free heap<td>%lu bytes</td>", (unsigned long)esp_get_free_heap_size() );
     strcat(page, temp);
     if ( Mqtt_Format != 0 ) { //bool == y en er is een mqtt adres, ja kijk dan of er een sensor is ingesteld
-     sprintf( temp,"<tr><td>mqtt clientId<td>%ld</td>", getChipId(false).c_str());
+     sprintf( temp,"<tr><td>mqtt clientId<td>%s</td>", getChipId(false).c_str());
      strcat(page, temp);
     // check if connected
     if ( MQTT_Client.connected() ) { //: add a dot

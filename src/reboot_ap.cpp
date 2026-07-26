@@ -32,7 +32,5 @@
 //}
 
 void loginAdmin(AsyncWebServerRequest *request) {
-  String authFailResponse = "<h2>login failed <a href='/'>click here</a></h2>";
-  const char* www_realm = "login as administrator."; 
     if (!request->authenticate("admin", pswd)) return request->requestAuthentication();
 }

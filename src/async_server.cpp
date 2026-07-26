@@ -200,7 +200,8 @@ server.on("/MQTT_TEST", HTTP_GET, [](AsyncWebServerRequest *request) {
 loginBoth(request, "admin");
 char Mqtt_send[26] = {0};
 strcpy( Mqtt_send , Mqtt_outTopic);
-if(Mqtt_send[strlen(Mqtt_send -1)] == '/') {
+size_t mqtt_len = strlen(Mqtt_send);
+if(mqtt_len > 0 && Mqtt_send[mqtt_len - 1] == '/') {
   strcat(Mqtt_send, String(Inv_Prop[0].invIdx).c_str());
 }
 

@@ -6,12 +6,9 @@ int decodePollAnswer(int which)
     char messageToDecode[CC2530_MAX_SERIAL_BUFFER_SIZE] = {0};
   
     char s_d[CC2530_MAX_SERIAL_BUFFER_SIZE] = {0};
-    uint8_t Message_begin_offset = 0;    
-  
-    int t_old = 0;
+    
    
     float en_old[4] = {0}; // energy old
-    float energy_old_total = 0;
     int t_extr  = 0;
     int ts = 0;
     bool resetFlag = false;

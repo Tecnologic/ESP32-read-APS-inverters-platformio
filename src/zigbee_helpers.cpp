@@ -148,20 +148,16 @@ void inverterReboot(int which) {
     }
 
 
-    char rebootCmd[57]={0};
+    char rebootCmd[96]={0};
     char s_d[200]={0};
     
-      char command[][50] = {
+            const char *command[] = {
         "2401",
         "1414060001000F13",
         "FBFB06C1000000000000A6FEFE",
         };
 //Serial.println("constructing command");
-      strncpy( rebootCmd, command[0], sizeof(command[0]) );
-      strncat( rebootCmd, Inv_Prop[which].invID, 4 ); // ad the 2nd byte of inv_id
-      strncat( rebootCmd, command[1], sizeof(command[1]) );
-      strncat( rebootCmd, ecu_id_reverse, sizeof(ecu_id_reverse) );
-      strncat( rebootCmd, command[2], sizeof(command[2]) );
+    snprintf(rebootCmd, sizeof(rebootCmd), "%s%.4s%s%s%s", command[0], Inv_Prop[which].invID, command[1], ecu_id_reverse, command[2]);
 //Serial.println("command: " + String(rebootCmd));
       ws.textAll("the rebootCmd = " + String(rebootCmd));
 

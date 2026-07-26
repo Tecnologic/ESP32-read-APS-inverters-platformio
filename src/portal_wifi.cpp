@@ -191,7 +191,6 @@ request->send(200, "text/html", toSend); //send the html code to the client
   laatsteMeting = millis(); //voor de time-out
 
   // this is the infinitive  loop 
-  static unsigned long heartbeat = 0;
   while (millis() < laatsteMeting + 300*1000UL) { // 5 minuten== 300 30 == 30sec
   
      if(actionFlag == 10) break; // set by portalClose 

@@ -55,26 +55,16 @@ void handle_Serial () {
               
 // // ********************** zigbee test new*****************************          
         if (strncasecmp(InputBuffer_Serial+3,"ZBT=",4) == 0) { 
-            char tmp[128]={0}; 
             int len = strlen(InputBuffer_Serial); 
               Serial.println("\n\nsend a zigbee command, len=" + String(len));
-            for(int i=0; i<len; i++) 
-            {
-              tmp[i] = InputBuffer_Serial[i+7];
-            }
             //Serial.print("command = " + String(tmp));
             testMessage(false);
             return;             
         } else 
           // // ********************** zigbee raw *****************************          
         if (strncasecmp(InputBuffer_Serial+3,"SENDRAW=",8) == 0) { 
-            char tmp[128]={0}; 
             int len = strlen(InputBuffer_Serial); 
               Serial.println("\n\nsend a zigbee command, len=" + String(len));
-            for(int i=0; i<len; i++) 
-            {
-              tmp[i] = InputBuffer_Serial[i+11];
-            }
             //Serial.print("command = " + String(tmp));
             rawMessage(false);
             return; 
@@ -121,7 +111,7 @@ void handle_Serial () {
             //input can be 10;EDIT=0-AABB; 
             char *first = InputBuffer_Serial + 12;
             char *second = strchr(first, '-'); // find dash
-            int kz;
+              int kz = -1;
             if (second) {
                 *second = '\0'; // terminate first number
                 kz = atoi(first);
@@ -130,7 +120,10 @@ void handle_Serial () {
             Serial.println("watt = " + String(watt));
             Serial.println("inverterCount =" + String(inverterCount));
             desiredThrottle[kz] = watt;
-            }  
+              } else {
+                Serial.println("error, throttle format should be THROTTLE=x-y");
+                return;
+              }
               if ( kz > inverterCount-1 ) {
               Serial.println("error, no such inverter");
               return;  
@@ -166,7 +159,7 @@ void handle_Serial () {
               for (int z=0; z<inverterCount; z++) {
                    String id = "0AB" + String(z);
                    polled[z] = true; 
-                   sprintf(Inv_Prop[z].invID, "%s", id);
+                   snprintf(Inv_Prop[z].invID, sizeof(Inv_Prop[z].invID), "%s", id.c_str());
                       
                    Inv_Data[z].acv = 220.1 + z*1.1 ;
                    Inv_Data[z].heath = 16.2 + z*2;

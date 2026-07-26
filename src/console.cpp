@@ -197,7 +197,7 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
             //input can be 10;EDIT=0-AABB; 
             char *first = txBuffer + 12;
             char *second = strchr(first, '-'); // find dash
-            int kz; 
+            int kz = -1;
             if (second) {
                 *second = '\0'; // terminate first number
                 kz = atoi(first);
@@ -205,7 +205,10 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
             consoleOut("inverter = " + String(kz));
             consoleOut("watt = " + String(watt));
             desiredThrottle[kz] = watt;
-            }  
+            } else {
+              ws.textAll("error, throttle format should be THROTTLE=x-y");
+              return;
+            }
               if ( kz > inverterCount-1 ) {
               ws.textAll("error, no such inverter");
               return;  

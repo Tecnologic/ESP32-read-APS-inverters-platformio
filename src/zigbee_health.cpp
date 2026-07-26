@@ -16,13 +16,13 @@ void healthCheck() {
       
         char toMQTT[50]={0}; // when i make this bigger a crash occures
         
-        sprintf( toMQTT, "{\"idx\":%d,\"svalue\":\"%ld\",\"heap\":%ld}", Mqtt_stateIDX, esp_get_free_heap_size(), esp_get_free_heap_size() );  
+        sprintf( toMQTT, "{\"idx\":%d,\"svalue\":\"%lu\",\"heap\":%lu}", Mqtt_stateIDX, (unsigned long)esp_get_free_heap_size(), (unsigned long)esp_get_free_heap_size() );  
         //must be like {"idx":901,"svalue":"22968", "heap":22968}
     
         consoleOut("mqtt publish heap, mess is : " + String(toMQTT) );
         MQTT_Client.publish ( Mqtt_send, toMQTT, false);  
         
-        memset(&toMQTT, 0, sizeof(&toMQTT)); //zero out 
+        memset(toMQTT, 0, sizeof(toMQTT)); //zero out 
         delayMicroseconds(250);
        }  
     }

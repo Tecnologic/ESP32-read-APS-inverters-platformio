@@ -76,7 +76,6 @@ void coordinator_init() {
     yield();    
     char ecu_id_reverse[13]; //= {ECU_REVERSE()};
     ECU_REVERSE().toCharArray(ecu_id_reverse, 13);
-    char initCmd[254]={0};
     char s_d[254]={0}; // provide a buffer for the call to readZB
 Serial.println("cordinator init 1");
     // commands for setting up coordinater
@@ -98,7 +97,8 @@ Serial.println("cordinator init 1");
     // construct some of the commands
     // ***************************** command 2 ********************************************
     // command 2 this is 26050108FFFF we add ecu_id reversed
-    strncat(initBaseCommand[2], ecu_id_reverse, sizeof(ecu_id_reverse)); 
+    size_t append_room = sizeof(initBaseCommand[2]) - strlen(initBaseCommand[2]) - 1;
+    strncat(initBaseCommand[2], ecu_id_reverse, append_room); 
     delayMicroseconds(250);
     //DebugPrintln("initBaseCmd 2 constructed = " + String(initBaseCommand[2]));  // ok
     
@@ -133,7 +133,7 @@ Serial.println("cordinator init 1");
     
     //memset(&initCmd, 0, sizeof(initCmd)); //zero out all buffers we could work with "messageToDecode"
     //delayMicroseconds(250);
-    memset(&initBaseCommand, 0, sizeof(&initBaseCommand)); //zero out all buffers we could work with "messageToDecode"
+    memset(initBaseCommand, 0, sizeof(initBaseCommand)); // zero out assembled commands
     delayMicroseconds(250);    
 }
 
@@ -142,7 +142,7 @@ Serial.println("cordinator init 1");
 //                the extra command for normal operations
 // **************************************************************************************
 void sendNO() {
-    char noCmd[49] ={0} ;   //  this buffer must have the right length
+    char noCmd[96] ={0} ;   // command includes reversed ECU id and trailer bytes
     char ecu_id_reverse[13]; //= {ECU_REVERSE()};
     ECU_REVERSE().toCharArray(ecu_id_reverse, 13);
     char s_d[254]={0}; // provide a buffer for the call to readZB
@@ -171,7 +171,7 @@ void sendNO() {
     //zero out 
     //memset(&comMand, 0, sizeof(comMand)); //zero out
     //delayMicroseconds(250);    
-    memset(&noCmd, 0, sizeof(noCmd)); //zero out
+    memset(noCmd, 0, sizeof(noCmd)); //zero out
     delayMicroseconds(250);
 
 }

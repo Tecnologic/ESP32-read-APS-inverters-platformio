@@ -63,7 +63,6 @@ if ( intern ) {    //DebugPrintln("the request comes from inside the network");
          return; 
       }
       if( diagNose != 0 ) consoleOut(F("handleNotFound found POLL="));
-      int x = serverUrl.indexOf("POLL=");
       //DebugPrintln("serverUrl = " + serverUrl);
       //DebugPrintln("sub = " + serverUrl.substring(6,7));
       int inv = serverUrl.substring(6,7).toInt();

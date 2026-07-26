@@ -25,7 +25,7 @@ const char BASISCONFIG[] PROGMEM = R"=====(
 )=====";
 
 void zendPageBasis(AsyncWebServerRequest *request) {
-  String(webPage)="";
+  String webPage = "";
     //DebugPrintln("we zijn nu op zendPageBasis");
     webPage = FPSTR(HTML_HEAD);
     webPage += FPSTR(BASISCONFIG);

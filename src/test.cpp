@@ -27,7 +27,6 @@ void testMessage(bool console)
 
 void rawMessage(bool console) {
       char sendCmd[100]={0};
-      char reCeived[254]={0};
       if(console) diagNose = 1; else diagNose = 2;
       int len;
       if(console) len = strlen( txBuffer );  else len = strlen( InputBuffer_Serial );
@@ -54,7 +53,6 @@ void rawMessage(bool console) {
 
 void sendRaw( char printString[] )
 {
-    char bufferSend[254]={0};
     char byteSend[3]; // never more than 2 bytes 
 
     //strcpy(bufferSend, printString); // 
@@ -91,7 +89,7 @@ int decodeGeneralAnswer(bool throttle)
     char messageToDecode[CC2530_MAX_SERIAL_BUFFER_SIZE] = {0};
   
     char s_d[CC2530_MAX_SERIAL_BUFFER_SIZE] = {0};
-    uint8_t Message_begin_offset = 0;    
+    
   
     //retrieve the answer
     strcpy(messageToDecode, readZB(s_d));

@@ -43,7 +43,6 @@ int decodeQueryAnswer(int welke)
 {
     char messageToDecode[CC2530_MAX_SERIAL_BUFFER_SIZE] = {0};
       char s_d[CC2530_MAX_SERIAL_BUFFER_SIZE] = {0};
-    uint8_t Message_begin_offset = 0;    
     char *payload;
     int fault=0; 
     consoleOut("decoding inverter " + String(welke));

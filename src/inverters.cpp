@@ -154,7 +154,6 @@ void handleInverterconfig(AsyncWebServerRequest *request)
    Inv_Prop[iKeuze].calib = request->arg("cal").toInt(); //
 
 // the selectboxes
-   char tempChar[1] = "";
    if(request->hasParam("pan1")) { Inv_Prop[iKeuze].conPanels[0] = true;} else { Inv_Prop[iKeuze].conPanels[0] = false;}  // mqselect
    if(request->hasParam("pan2")) { Inv_Prop[iKeuze].conPanels[1] = true;} else { Inv_Prop[iKeuze].conPanels[1] = false; }
 
@@ -251,7 +250,6 @@ void printInverters() {
 void remove_gaps() {
 String bestand_1;
 String bestand_2;
-bool found = false;  
 
 // say we have Inv_Prop0, Inv_Prop1, Inv_Prop3, Inv_Prop4, Inv_Prop5
 // this are 5 files 

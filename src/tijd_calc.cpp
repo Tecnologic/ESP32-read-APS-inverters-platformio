@@ -81,7 +81,7 @@ bool zomertijd() {
     //Serial.println("");
     // dow gaat van 0 naar 6, zondag is 0
     //Serial.print("de eerste zondag van zondag van oct is dag ");
-    if (zdoct == 0) {
+    if (eersteoct == 0) {
     zdoct = 1;
     } else {
     zdoct = 1+(7-eersteoct);

@@ -66,13 +66,10 @@ void start_wifi() {
 // }
 
 void loginBoth(AsyncWebServerRequest *request, String who) {
-  String authFailResponse = "<h2>login failed <a href='/'>click here</a></h2>";
   if (who == "admin" ){
-  const char* www_realm = "login as administrator."; 
     if (!request->authenticate("admin", pswd)) return request->requestAuthentication();
   }
   if (who == "both" ){
-  const char* www_realm = "login as administrator or user."; 
     if (!request->authenticate("admin", pswd) && !request->authenticate("user", userPwd)) return request->requestAuthentication();
   }
 }

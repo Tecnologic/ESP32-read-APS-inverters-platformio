@@ -6,7 +6,7 @@ void pairOnActionflag() {
 //can we pair when the radio is up for normal operation
    
    char term[20];
-   sprintf(term, "inverter %d" , Inv_Prop[iKeuze].invSerial);
+  snprintf(term, sizeof(term), "inverter %s" , Inv_Prop[iKeuze].invSerial);
    Update_Log(4, term);
     if( !coordinator(false) ) {
       //term="pairing failed, zb down";
@@ -42,7 +42,8 @@ void pairOnActionflag() {
 
 void handlePair(AsyncWebServerRequest *request) {
 
-     strncpy(Inv_Prop[iKeuze].invID, "1111", 4); // this value makes the pairing page visable
+  memcpy(Inv_Prop[iKeuze].invID, "1111", 4);
+  Inv_Prop[iKeuze].invID[4] = '\0'; // this value makes the pairing page visible
      
      actionFlag = 60; // we do this because no delay is alowed within an async request
      toSend=FPSTR(WAIT_PAIR);
@@ -114,10 +115,7 @@ bool pairing(int which) {
 bool decodePairMessage(int which)
 {
     char messageToDecode[CC2530_MAX_SERIAL_BUFFER_SIZE] = {0};
-    char _CC2530_answer_string[] = "44810000";
-    char _noAnswerFromInverter[32] = "FE0164010064FE034480CD14011F";
     char * result;                                 
-    char temp[13];
     char s_d[250]={0};
     String term = "";
 
